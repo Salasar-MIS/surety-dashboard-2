@@ -131,7 +131,8 @@ def render_revenue(branches):
         rows = []
         for b in branches:
             row = {"_id": str(b["_id"]), "Name": b["name"]}
-            row.update({m: b["monthly_revenue"].get(m, 0) for m in MONTHS})
+            # `or 0` guards against null/missing values rendering as "None".
+            row.update({m: (b["monthly_revenue"].get(m) or 0) for m in MONTHS})
             rows.append(row)
         df = pd.DataFrame(rows, columns=["_id", "Name"] + MONTHS)
 
@@ -197,8 +198,8 @@ def render_lakhs(branches):
             {
                 "_id": str(b["_id"]),
                 "Name": b["name"],
-                "Target": b.get("target", 0),
-                "Achievement": b.get("achievement", 0),
+                "Target": b.get("target") or 0,
+                "Achievement": b.get("achievement") or 0,
             }
             for b in branches
         ]
@@ -257,8 +258,8 @@ def render_proposals(branches):
             row = {"_id": str(b["_id"]), "Name": b["name"]}
             for m in MONTHS:
                 pc = b.get("proposal_conversions", {}).get(m, {})
-                row[f"{m} - Proposals"] = pc.get("proposals", 0)
-                row[f"{m} - Converted"] = pc.get("converted", 0)
+                row[f"{m} - Proposals"] = pc.get("proposals") or 0
+                row[f"{m} - Converted"] = pc.get("converted") or 0
             rows.append(row)
         df = pd.DataFrame(rows, columns=["_id", "Name"] + value_cols)
 

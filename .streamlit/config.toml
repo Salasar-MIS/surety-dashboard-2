@@ -1,9 +1,11 @@
 # Native Streamlit theme — Salasar brand, light base.
-# Custom glassmorphism / layout is layered on top via app/utils/styles.py.
+# These colours also drive the data_editor / dataframe grids (canvas-rendered),
+# so the grid harmonises with the brand. Glassmorphism / layout is layered on
+# top via app/utils/styles.py.
 [theme]
 base = "light"
-primaryColor = "#2d448d"            # deep brand blue (widget accents, selection)
-backgroundColor = "#f4f8fd"         # light app base (grid cells, inputs)
-secondaryBackgroundColor = "#ffffff"
+primaryColor = "#2d448d"            # deep brand blue (selection, active cell)
+backgroundColor = "#ffffff"         # crisp white grid cells / inputs
+secondaryBackgroundColor = "#eef3fc"  # light brand tint — grid header row
 textColor = "#172962"               # navy text
 font = "sans serif"
