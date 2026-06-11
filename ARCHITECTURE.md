@@ -171,10 +171,14 @@ Surety-Dashboard-Summary/
   theme) and `app/utils/styles.py` (custom CSS).
 - **Layout:** a glass hero header (logo + title + FY badge); three pill-style
   tabs, one per section; each section is a glass card with a label/title/subtitle.
-- **Inputs:** `st.data_editor` grids (editable) inside the glass cards.
-- **Totals:** Section 1 & 3 render read-only HTML totals tables (brand header,
-  green accent line); Section 2 shows KPI metric cards (Total Target, Total
-  Achievement, Achievement %).
+- **View / edit split:** each section shows a fully-branded **read-only HTML
+  table** (the canvas grid can't be deep-styled), with the editable
+  `st.data_editor` grid tucked behind an **"✏️ Edit" expander**. This gives a
+  full theme match for the default view while keeping inline editing on demand.
+- **Totals:** read-only tables include a Grand Total footer row (brand header,
+  green accent line, sticky first column). Section 2 also shows KPI metric cards
+  (Total Target, Total Achievement, Achievement %).
+- **Branch management** (add / rename / delete) lives in Section 1's editor.
 - **Note on shadcn/ui:** it is a React library and cannot back Streamlit's
   editable grids, so the shadcn-style look is achieved with the native theme +
   custom CSS instead (no extra dependency).
