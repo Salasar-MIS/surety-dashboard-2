@@ -137,25 +137,47 @@ FINANCIAL_YEAR = "2026-27"   # fixed — single-year app, no year picker in UI
 
 ```
 Surety-Dashboard-Summary/
-├── main.py                 # Streamlit entry point: 3 tabs, editable grids, totals
+├── main.py                 # Streamlit entry point: hero, 3 tabs, editable grids, totals
 ├── seed.py                 # Seed default branches + indexes (idempotent)
 ├── requirements.txt
 ├── .env                    # MONGO_URI / MONGO_DB (git-ignored)
 ├── .gitignore
 ├── README.md
+├── .streamlit/
+│   └── config.toml         # native theme (light base + Salasar brand colours)
 ├── app/
 │   ├── __init__.py
 │   └── utils/
 │       ├── __init__.py
 │       ├── constants.py    # FINANCIAL_YEAR, MONTHS
 │       ├── db.py           # Atlas connection (cached) → surety_dashboard_summary
-│       └── queries.py      # CRUD on branch_summary
+│       ├── queries.py      # CRUD on branch_summary
+│       └── styles.py       # GLOBAL_CSS — glassmorphism, brand, modern tables
 ├── PROJECT_DESCRIPTION.md
 └── ARCHITECTURE.md
 ```
 
 > Note: runtime totals are computed inline in `main.py` (a few small helpers);
 > no separate `transforms.py` was needed at this scale.
+
+---
+
+## UI / UX design
+
+- **Aesthetic:** light, modern dashboard with **glassmorphism** panels (frosted
+  translucent cards) over a soft brand-tinted gradient background.
+- **Brand palette (Salasar):** navy `#172962`, deep blue `#2d448d`,
+  lime `#a6ce39`, sky `#459fda`. Set in `.streamlit/config.toml` (native widget
+  theme) and `app/utils/styles.py` (custom CSS).
+- **Layout:** a glass hero header (logo + title + FY badge); three pill-style
+  tabs, one per section; each section is a glass card with a label/title/subtitle.
+- **Inputs:** `st.data_editor` grids (editable) inside the glass cards.
+- **Totals:** Section 1 & 3 render read-only HTML totals tables (brand header,
+  green accent line); Section 2 shows KPI metric cards (Total Target, Total
+  Achievement, Achievement %).
+- **Note on shadcn/ui:** it is a React library and cannot back Streamlit's
+  editable grids, so the shadcn-style look is achieved with the native theme +
+  custom CSS instead (no extra dependency).
 ```
 
 ---
