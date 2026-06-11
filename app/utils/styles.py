@@ -163,18 +163,6 @@ html, body, [class*="css"], [data-testid="stAppViewContainer"] * {
     border-right: 1px solid rgba(255,255,255,0.08);
 }
 .dash-table thead th:first-child { text-align: left; }
-.dash-table tbody td {
-    padding: 9px 14px; text-align: right; color: #2a3a63;
-    border-top: 1px solid #eef2fa; white-space: nowrap;
-}
-.dash-table tbody td:first-child {
-    text-align: left; font-weight: 600; color: #172962;
-    position: sticky; left: 0; background: #ffffff;
-}
-.dash-table tbody tr:nth-child(even) td { background: #f7faff; }
-.dash-table tbody tr:nth-child(even) td:first-child { background: #f0f5fe; }
-.dash-table tbody tr:hover td { background: #eaf1fc; }
-.dash-table tbody tr:hover td:first-child { background: #e3edfb; }
 .dash-table tfoot tr td {
     background: #f3f7ff; color: #172962; font-weight: 700; padding: 11px 14px;
     text-align: right; border-top: 2px solid #a6ce39;
@@ -183,19 +171,6 @@ html, body, [class*="css"], [data-testid="stAppViewContainer"] * {
     text-align: left; color: #172962; font-weight: 800;
     position: sticky; left: 0; background: #eef3fc;
 }
-
-/* ── Edit expander (holds the editable grid) ───────────────────────────────── */
-[data-testid="stExpander"] {
-    border: 1px solid rgba(45,68,141,0.16) !important;
-    border-radius: 12px !important;
-    background: rgba(255,255,255,0.55) !important;
-    backdrop-filter: blur(8px) saturate(140%);
-    margin-top: 16px !important;
-}
-[data-testid="stExpander"] summary {
-    font-weight: 600 !important; color: #2d448d !important; font-size: 13.5px !important;
-}
-[data-testid="stExpander"] summary:hover { color: #172962 !important; }
 
 /* ── Alerts ────────────────────────────────────────────────────────────────── */
 [data-testid="stAlert"] { border-radius: 12px !important; }
