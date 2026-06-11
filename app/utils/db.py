@@ -33,7 +33,9 @@ def _client():
     uri = _setting("MONGO_URI")
     if not uri:
         raise RuntimeError("MONGO_URI is not set (check .env or Streamlit secrets).")
-    return MongoClient(uri)
+    # Fail fast (5s) instead of hanging when the cluster is unreachable — a hang
+    # on Streamlit Cloud surfaces as a confusing "failed to fetch module" error.
+    return MongoClient(uri, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000)
 
 
 def get_db():

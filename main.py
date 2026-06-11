@@ -28,7 +28,21 @@ def _bootstrap():
     seed()
 
 
-_bootstrap()
+# Surface DB/connection problems as a readable message instead of a crash loop
+# (a startup crash on Streamlit Cloud otherwise shows as a JS "failed to fetch
+# module" error in the browser).
+try:
+    _bootstrap()
+except Exception as exc:
+    st.error(
+        "Could not connect to the database.\n\n"
+        "On Streamlit Cloud, check that **MONGO_URI** and **MONGO_DB** are set "
+        "under **Settings → Secrets**, and that MongoDB Atlas **Network Access** "
+        "allows connections from anywhere (`0.0.0.0/0`), since Streamlit Cloud "
+        "IPs are dynamic.\n\n"
+        f"Details: `{exc}`"
+    )
+    st.stop()
 
 
 # ── small helpers ─────────────────────────────────────────────────────────────
