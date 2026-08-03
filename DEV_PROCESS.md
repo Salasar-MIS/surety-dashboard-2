@@ -115,6 +115,7 @@ Surety-Dashboard-Summary/
 ├── seed.py                 # Seed default branches + indexes (idempotent)
 ├── requirements.txt        # streamlit, pymongo[srv], python-dotenv, pandas
 ├── .env                    # MONGO_URI / MONGO_DB  (GIT-IGNORED — not in repo)
+├── .env.example            # template for .env (safe, committed)
 ├── .gitignore
 ├── README.md
 ├── .streamlit/
@@ -232,4 +233,55 @@ secrets, ensure Atlas network access allows `0.0.0.0/0`.
       rotate `surety_db_user`'s password in Atlas and update secrets/`.env`.
 - [ ] Read §4 (decisions) before changing behaviour — several defaults were
       explicit user choices, not accidents.
+
+---
+
+## Appendix A — Original spreadsheet layout (preserved for reference)
+
+Source files (kept **outside** the repo on the build machine):
+`D:\Surety Dashboard - Summary (Manual)\`
+- `Surety Dashboard - Summary.xlsx` — the source spreadsheet.
+- `Surety Dashboard - Manual.txt` — the written requirements brief.
+
+The Excel (sheet `Surety Dash Board`, "FY 26-27`) laid out three tables. The
+structure below is what the app reproduces:
+
+- **Month Wise Branch Rev** — col A `Name`; cols B–M = April…March; rows =
+  branches (Naveen Aggarwal, NCR, Ahemdabad, Mumbai + blank rows); row 9 =
+  `Grand Total` = `SUM` per month column.
+- **Revenue in lacs** (top-right block) — `Names` (=A3… mirror of Section 1),
+  `Target` (manual), `Achievement` (`=SUM(months)` in Excel — **overridden to
+  manual per user decision**); `Grand Total` row.
+- **Month Wise Proposal Conversions** — `Name` (mirror), each month spans two
+  columns `Proposals` + `Converted`; `Grand Total` row = `SUM` per column.
+
+If the receiving developer wants the raw source files committed into a `docs/`
+folder, they can be added — they were left out to keep the repo code-only.
+
+---
+
+## Appendix B — Local build environment (original machine)
+
+- **OS:** Windows 11; shells used: PowerShell + Git Bash.
+- **No Python interpreter** was installed on the build machine (only Microsoft
+  Store shims) — so the app was **never run locally**; it was reviewed
+  statically and validated via the Streamlit Cloud deploy.
+- **Local folder nesting:** this project folder lives *inside* the sibling
+  project's working directory
+  (`D:\Surety-Dashboard-Claude\Surety-Dashboard-Summary`) but is its **own
+  independent git repo** (its own `.git`, remote `surety-dashboard-2`). The two
+  repos share nothing. When cloning fresh, clone `surety-dashboard-2` on its own.
+- **Git identity used:** `Salasar-MIS <ambarish@salasarservices.co.in>`; auth via
+  Git Credential Manager (cached GitHub creds).
+
+---
+
+## Appendix C — Relationship to the sibling project
+
+`Surety-Dashboard-Claude` (repo `SuretyDashboard`) is a **separate, more complex**
+app: RM-level and sub-branch data, with Naveen Aggarwal as an aggregator of 12
+sub-branches, stored in the `surety_dashboard` database. **This Summary app is
+deliberately independent**: flat branch-level only, its own repo, its own
+`surety_dashboard_summary` database. Do not merge, share code, or point one at
+the other's data. The only thing borrowed was the visual brand palette.
 ```
